@@ -25,15 +25,30 @@
 <body>
   <div id="container">
     <iframe id="fr" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
-    <button class="play-button" type="button" onclick="PlayTo(this)">CLICK TO PLAY</button>
+    <button class="play-button" type="button" onclick="PlayTo()">CLICK TO PLAY</button>
   </div>
   <script>
-    const FILE_URL = 'https://cdn.jsdelivr.net/gh/awaiblecomponent/575@main/1.xml';
-    function PlayTo(button) {
+    async function PlayTo() {
       const iframe = document.getElementById("fr");
-      iframe.src = FILE_URL;
-      iframe.style.display = "block";
-      button.style.display = "none";
+      const button = document.querySelector(".play-button");
+      
+      try {
+        // 1. Download the raw text of the game from the CDN
+        const response = await fetch('https://cdn.jsdelivr.net/gh/awaiblecomponent/575@main/1.xml');
+        const text = await response.text();
+        
+        // 2. Force the browser to render it inside the iframe
+        iframe.contentDocument.open();
+        iframe.contentDocument.write(text);
+        iframe.contentDocument.close();
+        
+        // 3. Show the game and hide the button
+        iframe.style.display = "block";
+        button.style.display = "none";
+      } catch (error) {
+        console.error("Error loading game:", error);
+        alert("Failed to load the game. Check your internet connection.");
+      }
     }
   </script>
 </body>
