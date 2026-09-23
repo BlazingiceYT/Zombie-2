@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>They Are Coming</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+  <script>
+    (function() {
+        Object.defineProperty(navigator, 'maxTouchPoints', { get: function() { return 5; } });
+        if (!('ontouchstart' in window)) { window.ontouchstart = null; }
+        Object.defineProperty(navigator, 'userAgent', {
+            get: function() { return 'Mozilla/5.0 (iPad; CPU OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1'; }
+        });
+        Object.defineProperty(navigator, 'platform', { get: function() { return 'iPad'; } });
+    })();
+  </script>
+  <style>
+    body, html { margin: 0; padding: 0; overflow: hidden; height: 100%; background: #000; }
+    #container { position: relative; width: 100%; height: 100%; }
+    iframe { width: 100%; height: 100%; border: none; display: none; }
+    .play-button { padding: 20px 40px; background: #000; color: #fff; border: 2px solid #4a148c; border-radius: 10px; font: bold 24px Arial; cursor: pointer; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1001; }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <iframe id="fr" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+    <button class="play-button" type="button" onclick="PlayTo(this)">CLICK TO PLAY</button>
+  </div>
+  <script>
+    const FILE_URL = 'https://cdn.jsdelivr.net/gh/awaiblecomponent/575@main/1.xml';
+    function PlayTo(button) {
+      const iframe = document.getElementById("fr");
+      iframe.src = FILE_URL;
+      iframe.style.display = "block";
+      button.style.display = "none";
+    }
+  </script>
+</body>
+</html>
