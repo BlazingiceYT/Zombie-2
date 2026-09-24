@@ -25,13 +25,12 @@ export default {
           return new Response(`Failed to fetch game: ${response.statusText}`, { status: response.status });
         }
 
-        // Get the content type from the CDN response (or set a default)
-        const contentType = response.headers.get('content-type') || 'application/octet-stream';
-
-        // Create a new response with the body and add CORS headers
+        // Create a new response with the body
         const newResponse = new Response(response.body, response);
+        
+        // Add CORS headers and FORCE the browser to render it as HTML
         newResponse.headers.set('Access-Control-Allow-Origin', '*');
-        newResponse.headers.set('Content-Type', contentType);
+        newResponse.headers.set('Content-Type', 'text/html;charset=UTF-8');
 
         return newResponse;
       } catch (error) {
